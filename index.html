@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nosso amor - Cronômetro</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Segoe+UI&display=swap');
+
+    :root {
+      --bg-light: #f0f0f0;
+      --text-light: #0d1b2a;
+      --card-light: #ffffff;
+
+      --bg-dark: #0d1b2a;
+      --text-dark: #e0e0e0;
+      --card-dark: #1b263b;
+
+      --accent: #1b4f72;
+      --purple-detail-light: #a98efb;
+      --purple-detail-dark: #bb86fc;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      transition: background-color 0.3s, color 0.3s;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    header {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: black;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .timer {
+      background-color: var(--card-light);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      transition: background-color 0.3s;
+    }
+
+    .timer h2 {
+      margin-bottom: 20px;
+      color: var(--accent);
+      font-size: 1.5rem;
+    }
+
+    .time {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .theme-toggle {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      background-color: var(--accent);
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .dark-mode .timer {
+      background-color: var(--card-dark);
+    }
+
+    .dark-mode header h1 {
+      color: black;
+    }
+
+    .dark-mode .timer h2 {
+      color: #61dafb;
+    }
+
+    .mensagem {
+      margin-top: 40px;
+      max-width: 600px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.25rem;
+      line-height: 1.6;
+      color: black;
+      background: linear-gradient(135deg, #9f8efb, var(--purple-detail-light));
+      padding: 30px 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(138, 43, 226, 0.5);
+      text-align: center;
+      user-select: none;
+      transition: font-family 0.8s ease;
+    }
+
+    .dark-mode .mensagem {
+      background: linear-gradient(135deg, var(--purple-detail-dark), #bb86fc);
+      box-shadow: 0 8px 20px rgba(187, 134, 252, 0.7);
+      color: black;
+    }
+
+    .imagem-romantica {
+      margin-top: 30px;
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Nosso amor</h1>
+  </header>
+
+  <div class="timer">
+    <h2>Tempo desde 23 de abril de 2024</h2>
+    <div class="time" id="cronometro">Carregando...</div>
+    <button class="theme-toggle" onclick="alternarTema()">Alternar tema</button>
+  </div>
+
+  <div class="mensagem" id="mensagem">
+    Nosso segundo dia dos namorados! Fico muito feliz de poder passar essa data e muitas outras ao seu lado.<br><br>
+    Você me conhece, amo datas comemorativas e te ter comigo nelas é mais que importante que possamos passar eternos dias dos namorados juntos!<br><br>
+    Feliz dia dos namorados!<br><br>
+
+    Quero te dizer o quanto te amo e te quero! Você mudou minha vida para melhor, obrigada por isso! Te ter como namorado é ainda mais especial do que como melhor amigo.<br><br>
+    A relação que estamos cutivando, vai dar ótimos frutos no futuro. Tenho muito orgulho de nós dois como casal. Estamos evoluindo e crescendo juntos cada vez mais, a pesar de todos altos e baixos. Tudo vai dar certo no final.<br><br>
+
+    Você é o meu para sempre!<br>
+    Eu amo que posso cantar verdadeira a música: Meu melhor amigo é o meu amor.<br>
+    Estaremos juntos em todas as realidades e todos os universos ou mundos. Não tem jeito, sempre foi você e sempre será.<br>
+    Eu te amo!
+  </div>
+
+  <!-- IMAGEM ADICIONADA AQUI, DEPOIS DO TEXTO -->
+  <img src="imagem-romantica.png"
+       alt="Homem-Aranha e garota se beijando"
+       class="imagem-romantica" />
+
+  <script>
+    const inicio = new Date("2024-04-23T00:00:00");
+
+    function atualizarCronometro() {
+      const agora = new Date();
+      const diferenca = agora - inicio;
+
+      const segundosTotais = Math.floor(diferenca / 1000);
+
+      const dias = Math.floor(segundosTotais / (60 * 60 * 24));
+      const horas = Math.floor((segundosTotais % (60 * 60 * 24)) / 3600);
+      const minutos = Math.floor((segundosTotais % 3600) / 60);
+      const segundos = segundosTotais % 60;
+
+      document.getElementById("cronometro").innerText =
+        `${dias} dias, ${horas}h ${minutos}m ${segundos}s`;
+    }
+
+    function alternarTema() {
+      document.body.classList.toggle("dark-mode");
+    }
+
+    atualizarCronometro();
+    setInterval(atualizarCronometro, 1000);
+  </script>
+</body>
+</html>
